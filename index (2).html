@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Чай для чоловіків «Сила трав»</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; color: #333; }
+    header { background: #003300; color: #fff; padding: 2rem; text-align: center; }
+    .container { max-width: 800px; margin: auto; padding: 2rem; background: #fff; }
+    img { width: 100%; max-height: 300px; object-fit: cover; border-radius: 10px; }
+    h1 { margin-top: 0; }
+    .price { font-size: 24px; color: #006600; font-weight: bold; }
+    form { margin-top: 2rem; }
+    input, textarea, select {
+      width: 100%; padding: 10px; margin-top: 10px;
+      border: 1px solid #ccc; border-radius: 5px;
+    }
+    button {
+      background: #006600; color: white; padding: 12px 20px;
+      border: none; border-radius: 5px; margin-top: 10px; cursor: pointer;
+    }
+    footer { text-align: center; padding: 2rem; font-size: 14px; color: #666; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Чай для чоловіків «Сила трав»</h1>
+  <p>Природна енергія в кожній чашці</p>
+</header>
+
+<div class="container">
+  <img src="tea.jpg" alt="Чай для чоловіків" />
+
+  <h2>Склад:</h2>
+  <p>Верес, парило, талабан, зеленчук, іван-чай, хвощ, брусниця, ожина.</p>
+
+  <h2>Користь:</h2>
+  <ul>
+    <li>Відновлення чоловічої статевої активності</li>
+    <li>Поліпшення кровообігу</li>
+    <li>Зміцнення передміхурової залози</li>
+  </ul>
+
+  <p class="price">Ціна: 250 грн / 100 г</p>
+
+  <form id="order-form">
+    <input type="text" name="name" placeholder="Ваше ім’я" required>
+    <input type="tel" name="phone" placeholder="Ваш номер телефону" required>
+    <select name="delivery" required>
+      <option value="">Оберіть спосіб доставки</option>
+      <option value="Нова Пошта">Нова Пошта</option>
+      <option value="Укрпошта">Укрпошта</option>
+    </select>
+    <textarea name="address" placeholder="Місто, вулиця або номер відділення" required></textarea>
+    <textarea name="comment" placeholder="Коментар (необов’язково)"></textarea>
+    <button type="submit">Надіслати замовлення</button>
+  </form>
+
+  <p id="status" style="margin-top: 1rem;"></p>
+</div>
+
+<footer>
+  &copy; 2025 Чай «Сила трав». Всі права захищені. <br>
+  Телефон: +38 (067) 123-45-67 | Telegram: @sila_trav
+</footer>
+
+<script>
+  document.getElementById("order-form").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
+    const res = await fetch("/send", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(data)
+    });
+    if (res.ok) {
+      document.getElementById("status").innerText = "✅ Заявку надіслано! Очікуйте дзвінок.";
+      this.reset();
+    } else {
+      document.getElementById("status").i
